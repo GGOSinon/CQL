@@ -105,6 +105,7 @@ def experiment(variant):
 def enable_gpus(gpu_str):
     if (gpu_str is not ""):
         os.environ["CUDA_VISIBLE_DEVICES"] = gpu_str
+        ptu.set_gpu_mode(True)
     return
 
 if __name__ == "__main__":
@@ -168,7 +169,7 @@ if __name__ == "__main__":
     parser.add_argument('--seed', default=10, type=int)
 
     args = parser.parse_args()
-    # enable_gpus(args.gpu)
+    enable_gpus(args.gpu)
     variant['trainer_kwargs']['max_q_backup'] = (True if args.max_q_backup == 'True' else False)
     variant['trainer_kwargs']['deterministic_backup'] = (True if args.deterministic_backup == 'True' else False)
     variant['trainer_kwargs']['min_q_weight'] = args.min_q_weight
